@@ -1,0 +1,18 @@
+<ion-nav id="nav" [root]="rootPage" #nav></ion-nav>
+<ion-menu [content]="nav">
+
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Lists</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <ion-list>
+      <button ion-item *ngFor="let list of lists" (click)="openList(p)">
+        {{list.title}}
+      </button>
+    </ion-list>
+  </ion-content>
+
+</ion-menu>

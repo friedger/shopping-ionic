@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Home</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">
+      {{item.title}}
+      <div class="item-note" item-right>
+        {{item.status}}
+      </div>
+    </button>
+  </ion-list>
+  
+  <ion-input id="new-item-input" type="text" [(ngModel)]="newItem" placeholder="Item"></ion-input>
+  <button (click)="add()" item-right ion-button>add</button>
+</ion-content>
