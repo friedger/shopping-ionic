@@ -1,6 +1,6 @@
 {
   "name": "OI Shopping List",
-  "short_name": "OI Shopping List",
+  "short_name": "Shopping list",
   "start_url": "index.html",
   "display": "standalone",
   "icons": [
