@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Home</ion-title>
+    <ion-title>My Shopping List</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -13,7 +13,22 @@
       </div>
     </button>
   </ion-list>
-  
-  <ion-input id="new-item-input" type="text" [(ngModel)]="newItem" placeholder="Item"></ion-input>
-  <button (click)="add()" item-right ion-button>add</button>
 </ion-content>
+
+
+<ion-footer>
+  <ion-toolbar>
+    <form (ngSubmit)="add()">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-input id="new-item-input" type="text" [(ngModel)]="newItem" [ngModelOptions]="{standalone:true}"placeholder="Item" item-left focuser></ion-input>
+        </ion-col>
+        <ion-col col-auto>
+          <button type="submit" item-right ion-button>add</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    </form>
+  </ion-toolbar>
+</ion-footer>

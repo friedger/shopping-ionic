@@ -30,19 +30,14 @@ export class HomePage {
   }
 
   itemTapped(event, item) {
-    if (item.status == 'new') {
-      item.status = 'bought'
-    } else {
-      item.status = 'new'
-    }
-    this.itemService.addOrUpdateItem(this.listName, item, val => this.loadItems());
+    this.itemService.addOrToggleItem(this.listName, item, val => this.loadItems());
   }
 
   add() {
     let item = new Item();
     item.title = this.newItem;
     item.status = 'new';
-    this.itemService.addOrUpdateItem(this.listName, item, 
+    this.itemService.addOrToggleItem(this.listName, item, 
       (val=> {
         this.loadItems();
         this.newItem = '';

@@ -32,6 +32,20 @@ export class ItemService {
     }
 
 
+    public addOrToggleItem(name:string, item: Item, callback) {
+     this.storage.get(name).then(list => {
+        if (list == null) {
+            list = [];
+        }
+        let storedItem = list.find(i => i.title == item.title);
+        if (storedItem) {
+            Item.toggleStatus(storedItem);
+        } else {
+            list.push(item);
+        }
+        this.storage.set(name, list).then(callback)
+    });
+    }
     private updateItemValues(storedItem: Item, changedItem: Item) {
       storedItem.status = changedItem.status;
     }
