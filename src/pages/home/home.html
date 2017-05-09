@@ -22,7 +22,8 @@
     <ion-grid>
       <ion-row>
         <ion-col>
-          <ion-input id="new-item-input" type="text" [(ngModel)]="newItem" [ngModelOptions]="{standalone:true}"placeholder="Item" item-left focuser></ion-input>
+          <ion-input id="new-item-input" type="text" [(ngModel)]="newItem" [ngModelOptions]="{standalone:true}" 
+            placeholder="Item" aria-label="new item" item-left focuser></ion-input>
         </ion-col>
         <ion-col col-auto>
           <button type="submit" item-right ion-button>add</button>
