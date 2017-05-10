@@ -1,5 +1,4 @@
-<ion-nav id="nav" [root]="rootPage" #nav></ion-nav>
-<ion-menu [content]="nav">
+<ion-menu [content]="content">
 
   <ion-header>
     <ion-toolbar>
@@ -9,10 +8,22 @@
 
   <ion-content>
     <ion-list>
-      <button ion-item *ngFor="let list of lists" (click)="openList(p)">
-        {{list.title}}
+      <button ion-item *ngFor="let p of lists" (click)="openList(p)">
+        {{p}}
+      </button>
+      <button ion-item (click)="newList()">
+        + new list
+      </button>
+      <hr/>
+      <button ion-item (click)="openContact()">
+        Contact
+      </button>
+      <button ion-item (click)="openAbout()">
+        About
       </button>
     </ion-list>
   </ion-content>
 
 </ion-menu>
+
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { ItemService } from '../../providers/item-service'
 import { Item } from "../../models/item";
 
@@ -13,7 +13,13 @@ export class HomePage {
   public newItem: string;
   public items: Item[];
 
-  constructor(public navCtrl: NavController, private itemService: ItemService) {
+  constructor(public navCtrl: NavController, navParams: NavParams, private itemService: ItemService) {
+    this.listName = navParams.get('list');
+
+    if (!this.listName) {
+      this.listName = 'my-shopping'
+    }
+    console.log(this.listName);
     this.loadItems();
   }
 
@@ -23,6 +29,11 @@ export class HomePage {
       data => {
         if (data) {
           this.items = data.filter(item => item.status == 'new');
+          this.items.sort((a: Item, b: Item) => {
+            if (a.title < b.title) return -1;
+            if (a.title > b.title) return 1;
+            return 0;
+          });
         } else {
           this.items = [];
         }
@@ -37,8 +48,8 @@ export class HomePage {
     let item = new Item();
     item.title = this.newItem;
     item.status = 'new';
-    this.itemService.addOrToggleItem(this.listName, item, 
-      (val=> {
+    this.itemService.addOrToggleItem(this.listName, item,
+      (val => {
         this.loadItems();
         this.newItem = '';
       }
