@@ -1,6 +1,6 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { IonicApp, IonicModule, IonicErrorHandler, IonicPageModule } from 'ionic-angular';
 import { MyApp } from './app.component';
 
 import { AboutPage } from '../pages/about/about';
@@ -11,6 +11,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { IonicStorageModule } from '@ionic/storage';
 import { Focuser } from "../components/focuser/focuser";
+import { TitleDialog } from "../pages/home/title";
 
 @NgModule({
   declarations: [
@@ -18,12 +19,16 @@ import { Focuser } from "../components/focuser/focuser";
     AboutPage,
     ContactPage,
     HomePage,
-    Focuser
+    Focuser,
+    TitleDialog
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    IonicPageModule.forChild(AboutPage),
+    IonicPageModule.forChild(ContactPage),
+    IonicPageModule.forChild(HomePage),
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -31,11 +36,12 @@ import { Focuser } from "../components/focuser/focuser";
     AboutPage,
     ContactPage,
     HomePage,
+    TitleDialog
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })
-export class AppModule {}
+export class AppModule { }

@@ -1,26 +1,38 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ModalController, IonicPage } from 'ionic-angular';
 import { ItemService } from '../../providers/item-service'
 import { Item } from "../../models/item";
+import { TitleDialog } from "./title";
+import { ListService } from "../../providers/list-service";
 
+@IonicPage({
+  name:'list',
+  segment: 'list/:list'
+})
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
-  providers: [ItemService]
+  providers: [ItemService, ListService]
 })
 export class HomePage {
   listName: string = 'my-shopping';
   public newItem: string;
   public items: Item[];
 
-  constructor(public navCtrl: NavController, navParams: NavParams, private itemService: ItemService) {
+  constructor(public navCtrl: NavController, public modalCtrl: ModalController,
+    navParams: NavParams,
+    private listService: ListService,
+    private itemService: ItemService) {
     this.listName = navParams.get('list');
 
-    if (!this.listName) {
-      this.listName = 'my-shopping'
+    if (navParams.get('newList')) {
+      this.showTitleDialog();
+    } else {
+      if (!this.listName) {
+        this.listName = 'my-shopping'; // should be last opened
+      }
+      this.loadItems();
     }
-    console.log(this.listName);
-    this.loadItems();
   }
 
   loadItems() {
@@ -38,6 +50,18 @@ export class HomePage {
           this.items = [];
         }
       });
+  }
+
+  showTitleDialog() {
+    let titleDialog = this.modalCtrl.create(TitleDialog);
+    titleDialog.onDidDismiss(data => {
+      if (data) {
+        this.listName = data.title;
+        this.listService.add(this.listName);
+      }
+      this.loadItems();
+    });
+    titleDialog.present();
   }
 
   itemTapped(event, item) {
